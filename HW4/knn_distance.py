@@ -2,7 +2,7 @@ import random
 
 def knn_distance(arr, q, k):
     """Compute the kth nearest point and the distance to it."""
-    #just apply quickselect
+
 
     diffs = [abs(x-q) for x in arr]
 
@@ -27,4 +27,3 @@ def knn_distance(arr, q, k):
     indices = list(range(len(arr)))
     kth_index = quickselect(indices, k)
     return (diffs[kth_index], arr[kth_index])
-
