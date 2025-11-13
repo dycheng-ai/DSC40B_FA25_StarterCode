@@ -7,7 +7,7 @@ def assign_good_and_evil(graph):
     assignment = {}
     visited = set()
     
-    nodes = list(graph.nodes())
+    nodes = list(graph.nodes)
     
     for start in nodes:
         if start in visited:
