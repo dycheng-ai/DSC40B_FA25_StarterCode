@@ -7,7 +7,7 @@ def cluster(graph, weights, level):
     visited = set()
     clusters = []
 
-    for start in graph.nodes():
+    for start in graph.nodes:
         if start in visited:
             continue
         component = set()
