@@ -112,7 +112,7 @@ def slc(graph, d, k):
     dsf = DisjointSetForest(nodes)
 
     edges = []
-    for u, v in graph.edges:
+    for (u, v) in graph.edges:
         dist = d((u, v))
         edges.append((dist, u, v))
     edges.sort()
