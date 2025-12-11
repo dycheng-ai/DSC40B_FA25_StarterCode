@@ -108,11 +108,11 @@ def slc(graph, d, k):
     '''
     Performs single linkage clustering using Kruskal's algorithm.
     '''
-    nodes = list(graph.nodes())
+    nodes = list(graph.nodes)
     dsf = DisjointSetForest(nodes)
 
     edges = []
-    for u, v in graph.edges():
+    for u, v in graph.edges:
         dist = d((u, v))
         edges.append((dist, u, v))
     edges.sort()
