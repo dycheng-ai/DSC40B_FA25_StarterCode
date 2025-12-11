@@ -1,4 +1,31 @@
 import dsc40graph
+def slc(graph, d, k):
+    '''
+    Performs single linkage clustering using Kruskal's algorithm.
+    '''
+    nodes = list(graph.nodes)
+    dsf = DisjointSetForest(nodes)
+
+    edges = []
+    for (u, v) in graph.edges:
+        dist = d((u, v))
+        edges.append((dist, u, v))
+    edges.sort()
+    num_clusters = len(nodes)
+
+    for dist, u, v in edges:
+        if num_clusters == k:
+            break
+        if not dsf.in_same_set(u, v):
+            dsf.union(u, v)
+            num_clusters -= 1
+
+    clusters_dict = {}
+    for node in nodes:
+        root = dsf.find_set(node)
+        clusters_dict.setdefault(root, set()).add(node)
+
+    return frozenset(frozenset(cluster) for cluster in clusters_dict.values())
 
 class DisjointSetForest:
 
@@ -103,31 +130,3 @@ class _DisjointSetForestCore:
             self._size_of_set[y_rep] += self._size_of_set[x_rep]
             if self._rank[x_rep] == self._rank[y_rep]:
                 self._rank[y_rep] += 1
-
-def slc(graph, d, k):
-    '''
-    Performs single linkage clustering using Kruskal's algorithm.
-    '''
-    nodes = list(graph.nodes)
-    dsf = DisjointSetForest(nodes)
-
-    edges = []
-    for (u, v) in graph.edges:
-        dist = d((u, v))
-        edges.append((dist, u, v))
-    edges.sort()
-    num_clusters = len(nodes)
-
-    for dist, u, v in edges:
-        if num_clusters == k:
-            break
-        if not dsf.in_same_set(u, v):
-            dsf.union(u, v)
-            num_clusters -= 1
-
-    clusters_dict = {}
-    for node in nodes:
-        root = dsf.find_set(node)
-        clusters_dict.setdefault(root, set()).add(node)
-
-    return frozenset(frozenset(cluster) for cluster in clusters_dict.values())
